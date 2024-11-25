@@ -44,12 +44,14 @@ def main(
 
     num_images = len(dataset)
     mask_size = get_mask_size(train_config)
-    patch_mask_preds = np.zeros((num_images,) + mask_size)
+    # patch_mask_preds = np.zeros((num_images,) + mask_size)
     patch_label_preds = np.zeros((num_images,))
 
     mesonet_classifier = Meso4()
     mesonet_classifier.load('MesoNet/weights/Meso4_DF.h5')
     mesonet_label_preds = np.zeros((num_images,))
+
+    ensemble_label_preds = np.zeros((num_images,))
 
     load_image = train_config["load-image"]
 
@@ -75,13 +77,19 @@ def main(
         mask_pred = mask_pred[0, 1]
         mask_pred = mask_pred.detach().cpu().numpy()
 
-        patch_mask_preds[i] = mask_pred
+        # patch_mask_preds[i] = mask_pred
         patch_label_preds[i] = np.mean(mask_pred)
 
         # Mesonet prediction
 
         mesonet_pred = mesonet_classifier.predict(image)
         mesonet_label_preds[i] = mesonet_pred[0][0]
+
+        # generate ensemble pred (0 if either model predicts 0/deepfake)
+        if (np.mean(mask_pred) <= 0.5 or mesonet_pred[0][0] <= 0.5):
+            ensemble_label_preds[i] = 0
+        else:
+            ensemble_label_preds[i] = 1
 
         # save image out
         if to_save_images:
@@ -106,7 +114,7 @@ def main(
     output_path = get_predictions_path(
         method_name, supervision, train_config_name, predict_config_name
     )
-    np.savez(output_path, patch_label_preds=patch_label_preds, patch_mask_preds=patch_mask_preds, mesonet_label_preds=mesonet_label_preds)
+    np.savez(output_path, ensemble_label_preds=ensemble_label_preds, patch_label_preds=patch_label_preds, mesonet_label_preds=mesonet_label_preds)
 
 
 if __name__ == "__main__":
