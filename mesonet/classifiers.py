@@ -13,7 +13,7 @@ class Classifier:
     def predict(self, x):
         if x.size == 0:
             return []
-        return self.model.predict(x)
+        return self.model.predict(x, verbose=0)
     
     def fit(self, x, y):
         return self.model.train_on_batch(x, y)

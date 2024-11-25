@@ -3,10 +3,12 @@ import os
 import torch
 import pdb
 import streamlit as st
+import tensorflow as tf
 from torch.nn import functional as F
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
 from dolos.predict import (
     PREDICT_CONFIGS,
     load_model,
@@ -14,8 +16,10 @@ from dolos.predict import (
     get_predictions_path
 )
 from dolos.train_full_supervision import (
-    get_mask_size,
-    CONFIGS
+    get_mask_size
+)
+from dolos.train_weak_supervision import (
+  CONFIGS
 )
 from mesonet.classifiers import (
     Meso4
@@ -37,7 +41,7 @@ def main(
 ):
     train_config = CONFIGS[train_config_name]
     dataset = PREDICT_CONFIGS[predict_config_name]["dataset"]
-    device = "cuda"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
     method_name = "patch-forensics"
     patch_model = load_model(supervision, train_config_name, train_config, device)
@@ -48,7 +52,8 @@ def main(
     patch_label_preds = np.zeros((num_images,))
 
     mesonet_classifier = Meso4()
-    mesonet_classifier.load('MesoNet/weights/Meso4_DF.h5')
+    mesonet_classifier.load('mesonet/weights/Meso4_DF.h5')
+    # mesonet_classifier.to(device)
     mesonet_label_preds = np.zeros((num_images,))
 
     ensemble_label_preds = np.zeros((num_images,))
@@ -82,8 +87,14 @@ def main(
 
         # Mesonet prediction
 
-        mesonet_pred = mesonet_classifier.predict(image)
-        mesonet_label_preds[i] = mesonet_pred[0][0]
+        path = dataset.get_image_path(i)
+        image = np.array(Image.open(path).resize((256, 256)))
+        image = np.expand_dims(image / 255.0, axis=0)
+        if image.shape != (1,256,256,3):
+            mesonet_label_preds[i] = 1
+        else:
+            mesonet_pred = mesonet_classifier.predict(image)
+            mesonet_label_preds[i] = mesonet_pred[0][0]
 
         # generate ensemble pred (0 if either model predicts 0/deepfake)
         if (np.mean(mask_pred) <= 0.5 or mesonet_pred[0][0] <= 0.5):

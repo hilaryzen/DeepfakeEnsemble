@@ -20,8 +20,8 @@ from torchdata.datapipes.map import SequenceWrapper
 from torchdata.datapipes.iter import IterableWrapper
 from torchvision import transforms
 
-from networks.customnet import make_patch_xceptionnet
-from metrics.iou_ignite import IOU
+from dolos.networks.customnet import make_patch_xceptionnet
+from dolos.metrics.iou_ignite import IOU
 
 
 BATCH_SIZE = 16

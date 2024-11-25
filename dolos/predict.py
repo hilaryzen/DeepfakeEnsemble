@@ -12,29 +12,16 @@ from torch.nn import functional as F
 from tqdm import tqdm
 from PIL import Image
 
-from data import (
+from dolos.data import (
     IndividualizedDataset,
     IndividualizedFakeDataset,
     DFFDataset,
     DFFFakeDataset
 )
-from networks.customnet import make_patch_xceptionnet
-from train_full_supervision import (
+from dolos.networks.customnet import make_patch_xceptionnet
+from dolos.train_full_supervision import (
     get_mask_size,
 )
-
-# MASK_SIZE = (37, 37)
-# MASK_SIZE_HALF = (18, 18)
-
-# def get_mask_size(config):
-#     if config["last-layer"] == "block3":
-#         return (19, 19)
-#     elif config["frontend"] in (None, "fad"):
-#         return MASK_SIZE
-#     elif config["frontend"] == "lfs":
-#         return MASK_SIZE_HALF
-#     else:
-#         assert False
 
 
 def get_best_model_path(model_dir):
@@ -52,7 +39,7 @@ def load_model_from_path(model_path, config, device):
     model = make_patch_xceptionnet(
         layername=config["last-layer"], frontend=config["frontend"]
     )
-    state_dict = torch.load(model_path)
+    state_dict = torch.load(model_path, map_location=torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
     model.load_state_dict(state_dict)
     model.to(device)
     model.eval()
@@ -127,7 +114,7 @@ def main(
 
     train_config = CONFIGS[train_config_name]
     dataset = PREDICT_CONFIGS[predict_config_name]["dataset"]
-    device = "cuda"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
     method_name = "patch-forensics"
     model = load_model(supervision, train_config_name, train_config, device)

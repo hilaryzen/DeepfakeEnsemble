@@ -18,16 +18,10 @@ from torchdata.datapipes.map import SequenceWrapper  # type: ignore
 from torchvision import transforms  # type: ignore
 from PIL import Image  # type: ignore
 
-from networks.customnet import make_patch_xceptionnet
-from networks.netutils import init_net
-from metrics.iou_ignite import IOU
-from data import (
-    IndividualizedDataset,
-    IndividualizedFakeDataset,
-    DFFDataset,
-    DFFFakeDataset
-)
-from train_full_supervision import (
+from dolos.networks.customnet import make_patch_xceptionnet
+from dolos.networks.netutils import init_net
+from dolos.metrics.iou_ignite import IOU
+from dolos.train_full_supervision import (
     IMAGE_SIZE,
     NORM,
     load_image as load_image_full,

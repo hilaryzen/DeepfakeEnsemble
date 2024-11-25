@@ -79,7 +79,7 @@ class DFFDataset(PathDataset):
 
 class IndividualizedFakeDataset(PathDataset):
     def __init__(self, split):
-        path_images = Path("data/indvidual/df")
+        path_images = Path("data/individual/df")
         super().__init__(path_images=path_images, split=split)
 
 class DFFFakeDataset(PathDataset):
