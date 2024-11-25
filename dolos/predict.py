@@ -13,14 +13,10 @@ from tqdm import tqdm
 from PIL import Image
 
 from data import (
-    CelebAHQDataset,
-    RepaintP2CelebAHQDataset,
-    RepaintP2CelebAHQ9KDataset,
-    RepaintLDMCelebAHQDataset,
-    LamaDataset,
-    PluralisticDataset,
     IndividualizedDataset,
-    IndividualizedFakeDataset
+    IndividualizedFakeDataset,
+    DFFDataset,
+    DFFFakeDataset
 )
 from networks.customnet import make_patch_xceptionnet
 from train_full_supervision import (
@@ -83,48 +79,18 @@ def get_predictions_path(
 
 
 PREDICT_CONFIGS = {
-    # "celebahq-valid": {
-    #     "dataset": CelebAHQDataset("valid"),
-    # },
-    # "celebahq-test": {
-    #     "dataset": CelebAHQDataset("test"),
-    # },
-    # "repaint-p2-valid": {
-    #     "dataset": RepaintP2CelebAHQDataset("valid"),
-    # },
-    # "repaint-p2-test": {
-    #     "dataset": RepaintP2CelebAHQDataset("test"),
-    # },
-    # "repaint-p2-9k-valid": {
-    #     "dataset": RepaintP2CelebAHQ9KDataset("valid"),
-    # },
-    # "repaint-p2-9k-test": {
-    #     "dataset": RepaintP2CelebAHQ9KDataset("test"),
-    # },
-    # "repaint-ldm-valid": {
-    #     "dataset": RepaintLDMCelebAHQDataset("valid"),
-    # },
-    # "repaint-ldm-test": {
-    #     "dataset": RepaintLDMCelebAHQDataset("test"),
-    # },
-    # "lama-valid": {
-    #     "dataset": LamaDataset("valid"),
-    # },
-    # "lama-test": {
-    #     "dataset": LamaDataset("test"),
-    # },
-    # "pluralistic-valid": {
-    #     "dataset": PluralisticDataset("valid"),
-    # },
-    # "pluralistic-test": {
-    #     "dataset": PluralisticDataset("test"),
-    # },
     "individualized-test": {
         "dataset": IndividualizedDataset("test")
     },
     "individualized-fake-test": {
         "dataset": IndividualizedFakeDataset("test")
-    }
+    },
+    "dff-test": {
+        "dataset": DFFDataset("test")
+    },
+    "dff-fake-test": {
+        "dataset": DFFFakeDataset("test")
+    },
 }
 
 

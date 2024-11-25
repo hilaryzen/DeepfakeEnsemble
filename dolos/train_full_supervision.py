@@ -22,15 +22,6 @@ from torchvision import transforms
 
 from networks.customnet import make_patch_xceptionnet
 from metrics.iou_ignite import IOU
-from data import (
-    ConcatDataset,
-    RepaintP2FFHQDataset,
-    RepaintP2CelebAHQDataset,
-    RepaintP2CelebAHQ9KDataset,
-    RepaintLDMCelebAHQDataset,
-    LamaDataset,
-    PluralisticDataset,
-)
 
 
 BATCH_SIZE = 16

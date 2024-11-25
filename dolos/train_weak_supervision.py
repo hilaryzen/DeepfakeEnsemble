@@ -22,12 +22,10 @@ from networks.customnet import make_patch_xceptionnet
 from networks.netutils import init_net
 from metrics.iou_ignite import IOU
 from data import (
-    CelebAHQDataset,
-    FFHQDataset,
-    P2CelebAHQDataset,
-    P2FFHQDataset,
-    RepaintP2CelebAHQ9KDataset,
-    RepaintP2FFHQDataset,
+    IndividualizedDataset,
+    IndividualizedFakeDataset,
+    DFFDataset,
+    DFFFakeDataset
 )
 from train_full_supervision import (
     IMAGE_SIZE,

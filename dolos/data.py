@@ -63,130 +63,26 @@ class WithMasksPathDataset(PathDataset):
 # § · Real datasets
 
 
-class CelebAHQDataset(PathDataset):
-    def __init__(self, split):
-        path_images = Path("data/celebahq/real")
-        super().__init__(path_images=path_images, split=split)
-
-
-class FFHQDataset(PathDataset):
-    def __init__(self, split):
-        path_images = Path("data/ffhq/real")
-        super().__init__(path_images=path_images, split=split)
-
-
 class IndividualizedDataset(PathDataset):
     def __init__(self, split):
-        path_images = Path("data/real")
+        path_images = Path("data/individual/real")
         super().__init__(path_images=path_images, split=split)
 
-
-# § · Fake datasets: Fully-manipulated
-
-
-class P2CelebAHQDataset(PathDataset):
+class DFFDataset(PathDataset):
     def __init__(self, split):
-        path_images = Path("data/celebahq/fake/p2")
+        path_images = Path("data/dff/real")
         super().__init__(path_images=path_images, split=split)
 
 
-class P2FFHQDataset(PathDataset):
-    def __init__(self, split):
-        path_images = Path("data/ffhq/fake/p2")
-        super().__init__(path_images=path_images, split=split)
+# § · Fake datasets
 
-
-# § · Fake datasets: Partially-manipulated
 
 class IndividualizedFakeDataset(PathDataset):
     def __init__(self, split):
-        path_images = Path("data/df")
+        path_images = Path("data/indvidual/df")
         super().__init__(path_images=path_images, split=split)
 
-
-class RepaintP2CelebAHQDataset(WithMasksPathDataset):
+class DFFFakeDataset(PathDataset):
     def __init__(self, split):
-        path_base = Path("data/celebahq/fake/repaint-p2")
-        super().__init__(
-            path_images=path_base / "images",
-            path_masks=path_base / "masks",
-            split=split,
-        )
-
-
-class RepaintP2FFHQDataset(WithMasksPathDataset):
-    def __init__(self, split):
-        path_base = Path("data/ffhq/fake/repaint-p2")
-        super().__init__(
-            path_images=path_base / "images",
-            path_masks=path_base / "masks",
-            split=split,
-        )
-
-
-class RepaintP2CelebAHQ9KDataset(WithMasksPathDataset):
-    def __init__(self, split):
-        path_base = Path("data/celebahq/fake/repaint-p2-9k")
-        super().__init__(
-            path_images=path_base / "images",
-            path_masks=path_base / "masks",
-            split=split,
-        )
-
-
-class RepaintLDMCelebAHQDataset(WithMasksPathDataset):
-    def __init__(self, split):
-        path_base = Path("data/celebahq/fake/ldm")
-        super().__init__(
-            path_images=path_base / "images",
-            path_masks=path_base / "masks",
-            split=split,
-        )
-
-
-class LamaDataset(WithMasksPathDataset):
-    def __init__(self, split):
-        path_base = Path("data/celebahq/fake/lama")
-        super().__init__(
-            path_images=path_base / "images",
-            path_masks=path_base / "masks",
-            split=split,
-        )
-
-
-class PluralisticDataset(WithMasksPathDataset):
-    def __init__(self, split):
-        path_base = Path("data/celebahq/fake/pluralistic")
-        super().__init__(
-            path_images=path_base / "images",
-            path_masks=path_base / "masks",
-            split=split,
-        )
-
-
-class ConcatDataset:
-    def __init__(self, *datasets):
-        self.datasets = datasets
-        self.lengths = [len(d) for d in datasets]
-
-    def _get_dataset_index_and_offset(self, i):
-        for j, length in enumerate(self.lengths):
-            if i < length:
-                return j, i
-            i -= length
-        raise IndexError
-
-    def get_image_path(self, i):
-        j, i = self._get_dataset_index_and_offset(i)
-        return self.datasets[j].get_image_path(i)
-
-    def get_mask_path(self, i):
-        j, i = self._get_dataset_index_and_offset(i)
-        return self.datasets[j].get_mask_path(i)
-
-    def __len__(self):
-        return sum(self.lengths)
-
-    def __getitem__(self, i):
-        j, i = self._get_dataset_index_and_offset(i)
-        return self.datasets[j][i]
+        path_images = Path("data/dff/df")
+        super().__init__(path_images=path_images, split=split)
