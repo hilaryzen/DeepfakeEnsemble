@@ -91,34 +91,34 @@ def output_transform_pooled_avg(pred, true):
 
 
 CONFIGS = {
-    "setup-a": {
-        "dataset-real": CelebAHQDataset,
-        "dataset-fake": P2CelebAHQDataset,
-        "load-image": load_image_0,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_expand,
-    },
+    # "setup-a": {
+    #     "dataset-real": CelebAHQDataset,
+    #     "dataset-fake": P2CelebAHQDataset,
+    #     "load-image": load_image_0,
+    #     "last-layer": "block2",
+    #     "frontend": None,
+    #     "output-transform": output_transform_expand,
+    # },
     "setup-b": {
-        "dataset-real": CelebAHQDataset,
-        "dataset-fake": RepaintP2CelebAHQ9KDataset,
+        # "dataset-real": CelebAHQDataset,
+        # "dataset-fake": RepaintP2CelebAHQ9KDataset,
         "load-image": load_image_0,
         "last-layer": "block2",
         "frontend": None,
         "output-transform": output_transform_expand,
     },
     # Cross-dataset experiments
-    "setup-a-ffhq": {
-        "dataset-real": FFHQDataset,
-        "dataset-fake": P2FFHQDataset,
-        "load-image": load_image_0,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_expand,
-    },
+    # "setup-a-ffhq": {
+    #     "dataset-real": FFHQDataset,
+    #     "dataset-fake": P2FFHQDataset,
+    #     "load-image": load_image_0,
+    #     "last-layer": "block2",
+    #     "frontend": None,
+    #     "output-transform": output_transform_expand,
+    # },
     "setup-b-ffhq": {
-        "dataset-real": FFHQDataset,
-        "dataset-fake": RepaintP2FFHQDataset,
+        # "dataset-real": FFHQDataset,
+        # "dataset-fake": RepaintP2FFHQDataset,
         "load-image": load_image_0,
         "last-layer": "block2",
         "frontend": None,
