@@ -65,12 +65,17 @@ class WithMasksPathDataset(PathDataset):
 
 class IndividualizedDataset(PathDataset):
     def __init__(self, split):
-        path_images = Path("data/individual/real")
+        path_images = Path("data/individualized/real")
         super().__init__(path_images=path_images, split=split)
 
 class DFFDataset(PathDataset):
     def __init__(self, split):
         path_images = Path("data/dff/real")
+        super().__init__(path_images=path_images, split=split)
+
+class ItauDataset(PathDataset):
+    def __init__(self, split):
+        path_images = Path("data/itau/real")
         super().__init__(path_images=path_images, split=split)
 
 
@@ -79,10 +84,15 @@ class DFFDataset(PathDataset):
 
 class IndividualizedFakeDataset(PathDataset):
     def __init__(self, split):
-        path_images = Path("data/individual/df")
+        path_images = Path("data/individualized/df")
         super().__init__(path_images=path_images, split=split)
 
 class DFFFakeDataset(PathDataset):
     def __init__(self, split):
         path_images = Path("data/dff/df")
+        super().__init__(path_images=path_images, split=split)
+
+class ItauFakeDataset(PathDataset):
+    def __init__(self, split):
+        path_images = Path("data/itau/df")
         super().__init__(path_images=path_images, split=split)
