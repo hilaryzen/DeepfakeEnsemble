@@ -19,6 +19,8 @@ Run `ensemble.py` with the commands below to generate ensemble model predictions
 
 ```
 python ensemble.py -s weak -t setup-b -p itau-test
+```
+```
 python ensemble.py -s weak -t setup-b -p itau-fake-test
 ```
 

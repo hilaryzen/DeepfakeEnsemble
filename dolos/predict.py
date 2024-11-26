@@ -13,10 +13,8 @@ from tqdm import tqdm
 from PIL import Image
 
 from dolos.data import (
-    IndividualizedDataset,
-    IndividualizedFakeDataset,
-    DFFDataset,
-    DFFFakeDataset
+    ItauDataset,
+    ItauFakeDataset
 )
 from dolos.networks.customnet import make_patch_xceptionnet
 from dolos.train_full_supervision import (
@@ -66,17 +64,23 @@ def get_predictions_path(
 
 
 PREDICT_CONFIGS = {
-    "individualized-test": {
-        "dataset": IndividualizedDataset("test")
+    # "individualized-test": {
+    #     "dataset": IndividualizedDataset("test")
+    # },
+    # "individualized-fake-test": {
+    #     "dataset": IndividualizedFakeDataset("test")
+    # },
+    # "dff-test": {
+    #     "dataset": DFFDataset("test")
+    # },
+    # "dff-fake-test": {
+    #     "dataset": DFFFakeDataset("test")
+    # },
+    "itau-test": {
+        "dataset": ItauDataset("test")
     },
-    "individualized-fake-test": {
-        "dataset": IndividualizedFakeDataset("test")
-    },
-    "dff-test": {
-        "dataset": DFFDataset("test")
-    },
-    "dff-fake-test": {
-        "dataset": DFFFakeDataset("test")
+    "itau-fake-test": {
+        "dataset": ItauFakeDataset("test")
     },
 }
 
