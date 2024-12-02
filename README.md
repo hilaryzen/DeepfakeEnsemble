@@ -9,9 +9,11 @@ cd DeepfakeEnsemble
 pip install -r requirements.txt
 ```
 
+tensorflow and pytorch-ignite may need to be installed separately.
+
 To prepare data:
 
-Load deepfaked test images into `data/itau/df/test` and real test images into `data/itau/real/test`. The `ItauDataset` and `ItauFakeDataset` classes in `data.py` point to these folders. More datasets can be added by creating new classes in `dolos/data.py` and updating `PREDICT_CONFIGS` in `dolos/predict.py`.
+Load deepfaked test images into `data/itau/df/test` and real test images into `data/itau/real/test` (just the image files, no additional subfolders). The `ItauDataset` and `ItauFakeDataset` classes in `data.py` point to these folders. More datasets can be added by creating new classes in `dolos/data.py` and updating `PREDICT_CONFIGS` in `dolos/predict.py`.
 
 To generate predictions:
 
