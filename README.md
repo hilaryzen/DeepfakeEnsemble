@@ -9,7 +9,7 @@ cd DeepfakeEnsemble
 pip install -r requirements.txt
 ```
 
-tensorflow and pytorch-ignite may need to be installed separately.
+tensorflow, pytorch-ignite, cmake, and face_recognition may need to be installed separately.
 
 To prepare data:
 
